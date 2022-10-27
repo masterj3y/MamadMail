@@ -16,7 +16,7 @@
         android:theme="@style/Theme.MamadMail"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".features.main.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:theme="@style/Theme.MamadMail">
