@@ -4,7 +4,6 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -17,7 +16,6 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
@@ -26,6 +24,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import kotlinx.coroutines.launch
+import masterj3y.github.mamadmail.common.composables.ClickableIcon
 import masterj3y.github.mamadmail.common.composables.dialog.ApiErrorDialog
 import masterj3y.github.mamadmail.common.extensions.rememberStateWithLifecycle
 import masterj3y.github.mamadmail.features.auth.model.Domain
@@ -181,12 +180,9 @@ private fun ScreenContent(
                 Icon(imageVector = Icons.Filled.Lock, contentDescription = null)
             },
             trailingIcon = {
-                Icon(
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .clickable { setPasswordVisibility(!passwordVisibility) },
+                ClickableIcon(
                     imageVector = if (passwordVisibility) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
-                    contentDescription = null
+                    onClick = { setPasswordVisibility(!passwordVisibility) }
                 )
             },
             visualTransformation = if (passwordVisibility)

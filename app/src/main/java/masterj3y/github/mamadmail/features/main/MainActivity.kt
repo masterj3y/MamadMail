@@ -1,4 +1,4 @@
-package masterj3y.github.mamadmail
+package masterj3y.github.mamadmail.features.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -6,17 +6,13 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import masterj3y.github.mamadmail.common.extensions.rememberFlowWithLifecycle
 import masterj3y.github.mamadmail.common.session.UserSessionManager
 import masterj3y.github.mamadmail.features.auth.ui.AuthScreen
@@ -57,10 +53,7 @@ class MainActivity : ComponentActivity() {
                         enter = slideInHorizontally(),
                         exit = fadeOut()
                     ) {
-                        Text(
-                            modifier = Modifier.clickable { lifecycleScope.launch { userSessionManager.logout() } },
-                            text = "Logged in"
-                        )
+                        MainScreen()
                     }
                 }
             }

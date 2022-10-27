@@ -5,6 +5,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import masterj3y.github.mamadmail.common.session.UserSessionManager
+import masterj3y.github.mamadmail.features.auth.interceptor.AuthInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -22,7 +24,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit {
+    fun provideRetrofit(userSessionManager: UserSessionManager): Retrofit {
 
         val logging = HttpLoggingInterceptor { message ->
             Timber.tag("network").d(message)
@@ -32,6 +34,7 @@ object NetworkModule {
 
         val httpClient = OkHttpClient.Builder()
             .addNetworkInterceptor(logging)
+            .addInterceptor(AuthInterceptor(userSessionManager))
             .build()
 
         return Retrofit.Builder()
