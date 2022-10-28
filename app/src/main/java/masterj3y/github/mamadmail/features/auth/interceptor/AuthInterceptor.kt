@@ -27,7 +27,7 @@ class AuthInterceptor @Inject constructor(private val userSessionManager: UserSe
 
             val response = chain.proceed(request)
 
-            if (!response.isSuccessful)
+            if (response.code == 401)
                 userSessionManager.logout()
 
             response

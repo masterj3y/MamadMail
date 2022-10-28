@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import masterj3y.github.mamadmail.common.composables.ClickableIcon
+import masterj3y.github.mamadmail.features.inbox.ui.InboxScreen
 import masterj3y.github.mamadmail.features.profile.ui.ProfileScreen
 
 @Composable
@@ -50,16 +51,17 @@ fun MainScreen() {
             TopBar(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(vertical = 16.dp, horizontal = 16.dp),
                 onProfileClick = { scope.launch { scaffoldState.drawerState.open() } },
                 query = query,
                 onQueryChange = setQuery
             )
+
+            InboxScreen()
         }
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun TopBar(
     modifier: Modifier = Modifier,
