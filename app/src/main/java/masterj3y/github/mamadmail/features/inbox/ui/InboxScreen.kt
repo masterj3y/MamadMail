@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
@@ -23,7 +23,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import masterj3y.github.mamadmail.features.inbox.model.Message
 
 @Composable
-fun InboxScreen(viewModel: InboxViewModel = viewModel()) {
+fun InboxScreen(viewModel: InboxViewModel = hiltViewModel()) {
 
     val messages = viewModel.messages.collectAsLazyPagingItems()
 
