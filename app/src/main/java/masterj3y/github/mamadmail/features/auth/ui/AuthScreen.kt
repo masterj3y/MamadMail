@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
@@ -31,11 +31,10 @@ import masterj3y.github.mamadmail.features.auth.model.Domain
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun AuthScreen() {
+fun AuthScreen(viewModel: AuthViewModel = hiltViewModel()) {
 
     val scope = rememberCoroutineScope()
 
-    val viewModel: AuthViewModel = viewModel()
     val uiState by rememberStateWithLifecycle(viewModel.state)
 
     val domains = viewModel.domains.collectAsLazyPagingItems()
