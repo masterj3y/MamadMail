@@ -22,7 +22,7 @@ import masterj3y.github.mamadmail.features.inbox.ui.InboxScreen
 import masterj3y.github.mamadmail.features.profile.ui.ProfileScreen
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navigateToMessageDetails: (messageId: String) -> Unit) {
 
     val scope = rememberCoroutineScope()
 
@@ -57,7 +57,7 @@ fun HomeScreen() {
                 onQueryChange = setQuery
             )
 
-            InboxScreen()
+            InboxScreen(navigateToMessageDetails = navigateToMessageDetails)
         }
     }
 }
