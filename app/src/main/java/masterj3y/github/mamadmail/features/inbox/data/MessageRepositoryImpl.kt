@@ -5,11 +5,14 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.skydoves.sandwich.ApiResponse
+import com.skydoves.sandwich.getOrNull
 import com.skydoves.sandwich.suspendOnSuccess
 import kotlinx.coroutines.flow.Flow
 import masterj3y.github.mamadmail.common.database.AppDatabase
 import masterj3y.github.mamadmail.common.database.dao.MessageDao
 import masterj3y.github.mamadmail.features.inbox.model.Message
+import masterj3y.github.mamadmail.features.inbox.model.MessageMarkAsReadRequest
+import masterj3y.github.mamadmail.features.message.model.MessageDetails
 import javax.inject.Inject
 
 class MessageRepositoryImpl @Inject constructor(
@@ -30,7 +33,12 @@ class MessageRepositoryImpl @Inject constructor(
 
     override val messages: Flow<PagingData<Message>> = messagePaging
 
-    override suspend fun markMessageAsSeen(messageId: String) = messageDao.markAsSeen(messageId)
+    override suspend fun markMessageAsRead(messageId: String) {
+        service.markMessageAsRead(messageId, MessageMarkAsReadRequest())
+            .suspendOnSuccess {
+                messageDao.markAsSeen(messageId)
+            }
+    }
 
     override suspend fun deleteMessage(messageId: String): ApiResponse<Any> {
         return service.deleteMessage(messageId)
@@ -38,4 +46,9 @@ class MessageRepositoryImpl @Inject constructor(
                 messageDao.deleteById(messageId)
             }
     }
+
+    override suspend fun fetchMessageDetail(messageId: String): ApiResponse<MessageDetails> =
+        service.fetchMessageAttachment(messageId).suspendOnSuccess {
+            service.markMessageAsRead(messageId, MessageMarkAsReadRequest()).getOrNull()
+        }
 }

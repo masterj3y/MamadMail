@@ -36,6 +36,6 @@ class AuthInterceptor @Inject constructor(private val userSessionManager: UserSe
     }
 
     companion object {
-        private const val AUTHORIZATION_HEADER = "Authorization"
+        const val AUTHORIZATION_HEADER = "Authorization"
     }
 }

@@ -23,7 +23,10 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import masterj3y.github.mamadmail.features.inbox.model.Message
 
 @Composable
-fun InboxScreen(viewModel: InboxViewModel = hiltViewModel()) {
+fun InboxScreen(
+    viewModel: InboxViewModel = hiltViewModel(),
+    navigateToMessageDetails: (messageId: String) -> Unit
+) {
 
     val messages = viewModel.messages.collectAsLazyPagingItems()
 
@@ -40,8 +43,8 @@ fun InboxScreen(viewModel: InboxViewModel = hiltViewModel()) {
         Messages(
             messages = messages,
             isRefreshing = isRefreshing.value,
-            onMessageClick = { },
-            onMarkAsSeen = { viewModel.markAsSeen(it.id) },
+            onMessageClick = { navigateToMessageDetails(it.id) },
+            onMarkAsRead = { viewModel.markAsRead(it.id) },
             onDeleteMessage = { viewModel.delete(it.id) }
         )
     }
@@ -53,7 +56,7 @@ private fun Messages(
     messages: LazyPagingItems<Message>,
     isRefreshing: Boolean,
     onMessageClick: (Message) -> Unit,
-    onMarkAsSeen: (Message) -> Unit,
+    onMarkAsRead: (Message) -> Unit,
     onDeleteMessage: (Message) -> Unit
 ) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -65,7 +68,7 @@ private fun Messages(
                         modifier = Modifier.animateItemPlacement(),
                         message = message,
                         onClick = onMessageClick,
-                        onLongClick = onMarkAsSeen,
+                        onLongClick = onMarkAsRead,
                         onSwipe = onDeleteMessage,
                     )
             }

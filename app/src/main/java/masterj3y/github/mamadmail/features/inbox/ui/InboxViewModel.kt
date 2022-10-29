@@ -17,9 +17,9 @@ class InboxViewModel @Inject constructor(
 
     val messages: Flow<PagingData<Message>> = repository.messages
 
-    fun markAsSeen(messageId: String) {
+    fun markAsRead(messageId: String) {
         viewModelScope.launch {
-            repository.markMessageAsSeen(messageId)
+            repository.markMessageAsRead(messageId)
         }
     }
 
